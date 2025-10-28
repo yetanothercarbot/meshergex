@@ -97,7 +97,7 @@ def handleMeshPacket(message, hash, interface):
     else:
         ret = retrieveSuburb(res.group("suburb"), res.group("iid"))
 
-    interface.sendText(text = ret[0], wantAck = True, channelIndex = 1)
+    interface.sendText(text = ret[0], wantAck = True, channelIndex = channelIndex)
     if ret[1]:
         mqttc.publish("meshergex/handled", hash)
 
