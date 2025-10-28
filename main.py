@@ -60,7 +60,7 @@ def retrieveSuburb(suburb: str, iid: str):
 
     if suburb.upper() == "SUMMARY":
         return ((f"Summary: {overview['affected']} affected across {sum(overview['suburbs'][i]['outages'] for i in overview['suburbs'])} outages. "
-            f"Last updated {time.strftime("%H:%M", time.localtime(overview['updated']))}"), True)
+            f"Last updated {time.strftime('%H:%M', time.localtime(overview['updated']))}"), True)
 
     if suburb.upper() not in overview['suburbs']:
         return (f"No outage found in {suburb[:40]}. Call 13 62 62 to report outage or 13 19 62 for fallen powerlines or electric shocks.", True)
