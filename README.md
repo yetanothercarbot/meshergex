@@ -26,7 +26,7 @@ You will need to fill out each of the blank fields. Most fields should be self-e
 Whilst the script should not crash, you may wish to use pm2 to ensure it is restarted after a crash and after a reboot:
 
 ```sh
-pm2 start --interpreter $(pwd)/venv/bin/python3 $(pwd)/main.py
+pm2 start --name meshergex --interpreter $(pwd)/venv/bin/python3 $(pwd)/main.py
 ```
 
 Otherwise, you may set it up as a systemd service or simply run it manually.
