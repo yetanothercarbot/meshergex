@@ -103,10 +103,11 @@ def handleMeshPacket(message, hash, interface):
 
 def onMeshReceive(packet, interface):
     message = packet['decoded']['text']
-    hash = hashlib.sha256(f"{packet['decoded']['text']}{packet['fromId']}{packet['rxTime']}".encode()).hexdigest()
+    hash = hashlib.sha256(f"{packet['decoded']['text']}{packet['fromId']}".encode()).hexdigest()
     if search.match(message) is None:
         return
     
+    print(hash)
     if waitPeriod == 0:
         handleMeshPacket(message, hash, interface)
     else:
