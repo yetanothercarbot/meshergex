@@ -21,9 +21,10 @@ def on_mqtt_connect(client, userdata, flags, reason_code, properties):
 def on_mqtt_message(client, userdata, msg):
     # msg.topic
     # msg.payload
-    if msg.payload in unhandledReqs:
-        unhandledReqs[msg.payload].cancel()
-        unhandledReqs.pop(msg.payload)
+    pl = msg.payload.decode()
+    if pl in unhandledReqs:
+        unhandledReqs[pl].cancel()
+        unhandledReqs.pop(pl)
 
 def updateSummary():
     global overview
@@ -107,7 +108,6 @@ def onMeshReceive(packet, interface):
     if search.match(message) is None:
         return
     
-    print(hash)
     if waitPeriod == 0:
         handleMeshPacket(message, hash, interface)
     else:
