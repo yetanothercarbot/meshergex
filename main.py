@@ -100,11 +100,13 @@ def handleMeshPacket(message, hash, interface):
 
     interface.sendText(text = ret[0], wantAck = True, channelIndex = channelIndex)
     if ret[1]:
-        mqttc.publish("meshergex/handled", hash)
+        # This needs to be delayed to avoid a race condition where we have resolved a request before secondary nodes have even received it.
+        t = threading.Timer(5, mqttc.publish, args=("meshergex/handled", hash))
 
 def onMeshReceive(packet, interface):
     message = packet['decoded']['text']
-    hash = hashlib.sha256(f"{packet['decoded']['text']}{packet['fromId']}".encode()).hexdigest()
+    hash = hashlib.sha256(f"{packet['decoded']['text']}".encode()).hexdigest()
+    print(f"Received {hash}")
     if search.match(message) is None:
         return
     
@@ -139,10 +141,14 @@ def main():
     try:
         iface = meshtastic.tcp_interface.TCPInterface(config["mesh_address"])
         print(f"Connected to {iface.getLongName()}")
+        if "alert" in config and config['alert']:
+            import alerts
+            alerts.begin(config, iface)
         while True:
             time.sleep(1000)
         iface.close()
-    except:
+    except Exception as e:
+        print(e)
         mqttc.loop_stop()
         sys.exit(1)
 
