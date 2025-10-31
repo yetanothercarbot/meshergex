@@ -1,5 +1,5 @@
 pytap2
-meshtastic
+meshtastic @ git+https://github.com/pdxlocations/meshtastic-python@waypoint-icon
 requests
 paho-mqtt
 lxml

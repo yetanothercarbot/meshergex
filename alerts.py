@@ -124,7 +124,7 @@ def update_individual_fire(iface, fires, additions, deletions):
         # icon 128293
         fire = fires[additions[0]]
         expiry = int(time.time() + 24*60*60)
-        iface.sendWaypoint(name = fire['title'][:30], description = fire['detail'][:100], expire = expiry, waypoint_id = additions[0], latitude = fire['lat'], longitude = fire['lon'], channelIndex = alertChannelIndex)
+        iface.sendWaypoint(name = fire['title'][:30], description = fire['detail'][:100], icon = 128293, expire = expiry, waypoint_id = additions[0], latitude = fire['lat'], longitude = fire['lon'], channelIndex = alertChannelIndex)
         additions.pop(0)
         t = threading.Timer(4, update_individual_fire, kwargs={"iface": iface, "fires": fires, "additions": additions, "deletions": deletions})
         t.start()
