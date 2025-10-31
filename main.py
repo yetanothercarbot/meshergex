@@ -138,19 +138,16 @@ def main():
     mqttc.connect(config["mqtt_host"], config["mqtt_port"], 60)
     mqttc.loop_start()
 
-    try:
-        iface = meshtastic.tcp_interface.TCPInterface(config["mesh_address"])
-        print(f"Connected to {iface.getLongName()}")
-        if "alert" in config and config['alert']:
-            import alerts
-            alerts.begin(config, iface)
-        while True:
-            time.sleep(1000)
-        iface.close()
-    except Exception as e:
-        print(e)
-        mqttc.loop_stop()
-        sys.exit(1)
+    iface = meshtastic.tcp_interface.TCPInterface(config["mesh_address"])
+    print(f"Connected to {iface.getLongName()}")
+    if "alert" in config and config['alert']:
+        import alerts
+        alerts.begin(config, iface)
+    while True:
+        time.sleep(1000)
+    iface.close()
+    mqttc.loop_stop()
+
 
 if __name__ == "__main__":
     main()

@@ -2,3 +2,4 @@ pytap2
 meshtastic
 requests
 paho-mqtt
+lxml
