@@ -16,7 +16,7 @@ class BomWarning():
         self.phenomena = el.xpath("//text[@type='warning_phenomena_summary']/p")[0].text
         self.issued = el.xpath("//text[@type='issued_at']/p")[0].text
     def __eq__(self, value):
-        return self.area == value.area and self.issued == value.issued
+        return self.title == value.title == self.area == value.area and self.issued == value.issued
     def messages(self):
         return (f"{self.title} {self.phenomena}", f"{self.area} {self.issued} by BOM.")
 
