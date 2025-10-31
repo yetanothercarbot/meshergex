@@ -11,10 +11,30 @@ class BomWarning():
     phenomena = ""
     issued = ""
     def __init__(self, el):
-        self.title = el.xpath("//text[@type='warning_title']/p")[0].text.replace(" - Southeast Queensland", "")
-        self.area = el.xpath("//text[@type='warning_area_summary']/p")[0].text
-        self.phenomena = el.xpath("//text[@type='warning_phenomena_summary']/p")[0].text
-        self.issued = el.xpath("//text[@type='issued_at']/p")[0].text
+        title = el.xpath("//text[@type='warning_title']/p")
+        area = el.xpath("//text[@type='warning_area_summary']/p")
+        phenomena = el.xpath("//text[@type='warning_phenomena_summary']/p")
+        issued = el.xpath("//text[@type='issued_at']/p")
+
+        if len(title) != 0:
+            self.title = title[0].text.replace(" - Southeast Queensland", "")
+        else:
+            self.title = ""
+
+        if len(area) != 0:
+            self.area = area[0].text
+        else:
+            self.area = "unspecified area"
+
+        if len(phenomena) != 0:
+            self.phenomena = phenomena[0].text
+        else:
+            self.phenomena = ""
+
+        if len(issued) != 0:
+            self.issued = issued[0].text
+        else:
+            self.issued = "Issued"
     def __eq__(self, value):
         return self.title == value.title == self.area == value.area and self.issued == value.issued
     def messages(self):
