@@ -53,6 +53,7 @@ def push_bom_messages(iface, messages):
 
 
 def update_bom_warnings(iface):
+    global bom_warnings
     new_warnings = get_bom_warnings()
     queued_messages = []
     for new_warning in new_warnings:
