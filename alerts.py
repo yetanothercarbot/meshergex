@@ -36,7 +36,7 @@ class BomWarning():
         else:
             self.issued = "Issued"
     def __eq__(self, value):
-        return self.title == value.title == self.area == value.area and self.issued == value.issued
+        return self.title == value.title and self.phenomena == value.phenomena and self.area == value.area
     def messages(self):
         return (f"{self.title} {self.phenomena}", f"{self.area} {self.issued} by BOM.")
 
