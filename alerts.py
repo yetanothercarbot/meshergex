@@ -68,7 +68,7 @@ def push_bom_messages(iface, messages):
         t = threading.Timer(4, push_bom_messages, kwargs={"iface": iface, "messages": messages})
         t.start()
     else:
-        t = threading.Timer(30*60, update_bom_warnings, kwargs={"iface": iface})
+        t = threading.Timer(5*60, update_bom_warnings, kwargs={"iface": iface})
         t.start()
 
 
