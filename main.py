@@ -23,6 +23,7 @@ def on_mqtt_message(client, userdata, msg):
     # msg.payload
     pl = msg.payload.decode()
     if pl in unhandledReqs:
+        print(f"Cancel {pl}")
         unhandledReqs[pl].cancel()
         unhandledReqs.pop(pl)
 
@@ -101,7 +102,8 @@ def handleMeshPacket(message, hash, interface):
     interface.sendText(text = ret[0], wantAck = True, channelIndex = channelIndex)
     if ret[1]:
         # This needs to be delayed to avoid a race condition where we have resolved a request before secondary nodes have even received it.
-        t = threading.Timer(5, mqttc.publish, args=("meshergex/handled", hash))
+        t = threading.Timer(10, mqttc.publish, args=("meshergex/handled", hash))
+        t.start()
 
 def onMeshReceive(packet, interface):
     message = packet['decoded']['text']
