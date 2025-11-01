@@ -68,7 +68,7 @@ def push_bom_messages(iface, messages):
         t = threading.Timer(4, push_bom_messages, kwargs={"iface": iface, "messages": messages})
         t.start()
     else:
-        t = threading.Timer(30*60, update_bom_warnings)
+        t = threading.Timer(30*60, update_bom_warnings, kwargs={"iface": iface})
         t.start()
 
 
@@ -130,7 +130,7 @@ def update_individual_fire(iface, fires, additions, deletions):
         t.start()
         return
 
-    t = threading.Timer(30*60, update_fires)
+    t = threading.Timer(30*60, update_fires, kwargs={"iface": iface})
     t.start()
 
 def begin(config, iface):
